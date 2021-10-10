@@ -1,3 +1,4 @@
+package APAssignment1;
 
 import java.util.*;
 import java.lang.*;
@@ -10,7 +11,7 @@ public class Covin{
     private ArrayList<Hospital> hospitals;
     private ArrayList<Record> records;
 
-    Covin(){
+    public Covin(){
         Vaccines = new ArrayList<vaccine>();
         hospitals = new ArrayList<Hospital>();
         records = new ArrayList<Record>();

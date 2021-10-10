@@ -1,3 +1,4 @@
+package APAssignment1;
 
 import java.util.*;
 import java.lang.*;
@@ -13,7 +14,7 @@ public class Hospital{
     private String unique_id;
     private HashMap<slot, Integer> Slots;
 
-    Hospital(String name,String pincode){
+    public Hospital(String name,String pincode){
         this.name = name;
         this.pincode = pincode;
         this.unique_id = String.format("%06d", total);

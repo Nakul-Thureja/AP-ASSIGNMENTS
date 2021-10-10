@@ -1,3 +1,4 @@
+package APAssignment1;
 
 import java.util.*;
 import java.lang.*;
@@ -9,7 +10,7 @@ public class Citizens{
      private int age;
      private String unique_id;
 
-    Citizens(String name,int age,String unique_id){
+     public Citizens(String name,int age,String unique_id){
         this.name = name;
         this.age = age;
         this.unique_id = unique_id;

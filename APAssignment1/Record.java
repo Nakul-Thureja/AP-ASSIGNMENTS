@@ -1,3 +1,4 @@
+package APAssignment1;
 
 import java.util.*;
 import java.lang.*;
@@ -10,7 +11,7 @@ public class Record{
     private ArrayList<slot> slots;
     private String status;
 
-    Record(Citizens citizen){
+    public Record(Citizens citizen){
         this.citizen = citizen;
         this.slots = new ArrayList<slot>();
         this.status = "Registered";

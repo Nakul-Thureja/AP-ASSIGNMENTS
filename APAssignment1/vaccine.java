@@ -1,3 +1,4 @@
+package APAssignment1;
 
 import java.util.*;
 import java.lang.*;
@@ -9,7 +10,7 @@ public class vaccine{
     private int doses;
     private int gap;
 
-    vaccine(String vaccine_name,int doses,int gap){
+    public vaccine(String vaccine_name,int doses,int gap){
         this.vaccine_name = vaccine_name;
         this.doses = doses;
         this.gap = gap;

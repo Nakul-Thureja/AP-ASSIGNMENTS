@@ -1,6 +1,7 @@
 //Name: Nakul Thureja
 //Roll No: 2020528
 //AP Assignment 1
+package APAssignment1;
 
 import java.util.*;
 import java.lang.*;

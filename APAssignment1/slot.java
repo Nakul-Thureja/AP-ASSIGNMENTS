@@ -1,3 +1,4 @@
+package APAssignment1;
 
 import java.util.*;
 import java.lang.*;
@@ -9,7 +10,7 @@ public class slot{
     private Hospital hospital;
     private vaccine vac;
 
-    slot(int day,vaccine vac){
+    public slot(int day,vaccine vac){
         this.day = day;
         this.hospital = null;
         this.vac = vac;
