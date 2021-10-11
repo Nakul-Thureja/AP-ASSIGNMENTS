@@ -57,6 +57,14 @@ public class Covin{
             System.out.println("Invalid Id");
             return;
         }
+
+        for(int i=0;i<records.size();i++){
+            if(unique_id.equals(records.get(i).getUnique_id())){
+                System.out.println("Citizen ID is not Unique");
+                return;
+            }
+        }
+
         Citizens citizen = new Citizens(citizen_name,age,unique_id);
         System.out.println(citizen);
         if(age >= 18) {
@@ -149,21 +157,26 @@ public class Covin{
             System.out.println("Exited...");
             return;
         }
-        if(op == 2){
+        else if(op == 2){
             System.out.println("Enter Vaccine name: ");
             String name = sc.next();
             for(int i=0;i<hospitals.size();i++){
-                flag = flag || hospitals.get(i).print_Slotsbyname(name);
+                boolean var = hospitals.get(i).print_Slotsbyname(name);
+                flag = var || flag ;
             }
         }
-        if(op == 1) {
+        else if(op == 1) {
             System.out.println("Enter PinCode: ");
             String pincode = sc.next();
             for(int i=0;i<hospitals.size();i++){
-                flag = flag || hospitals.get(i).print_Slotsbypincode(pincode);
+                boolean var = hospitals.get(i).print_Slotsbypincode(pincode);
+                flag = var || flag ;
             }
         }
-        
+        else{
+            System.out.println("Please Enter Valid Option");
+            return;
+        }
         if(!flag){
             System.out.println("No Hospitals Available");
             return;

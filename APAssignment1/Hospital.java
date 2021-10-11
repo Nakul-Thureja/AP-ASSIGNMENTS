@@ -36,9 +36,9 @@ public class Hospital{
     }
 
     public void add_Slots(slot s, int qty){
-       Slots.put(s,qty);
-       s.setHospital(this);
-       System.out.println("Slot added by Hospital "+this.unique_id+" for Day: "+s.getDay()+
+        s.setHospital(this);
+        this.Slots.put(s,qty);
+        System.out.println("Slot added by Hospital "+this.unique_id+" for Day: "+s.getDay()+
                           ", Quantity:" + Slots.get(s) + " of Vaccine " + s.getVac());
     }
 
@@ -49,10 +49,10 @@ public class Hospital{
         int pos = 0;
 
         ArrayList<slot> avaialable_slots = new ArrayList<>();
-        for(slot s: Slots.keySet()){
+        for(slot s: this.Slots.keySet()){
             if(s.getDay() >= next){
                 if(vac_name.equals("") || vac_name.equals(s.getVac())){
-                    System.out.println(pos + "-> Day: " + s.getDay()  + " Available Qty: " + Slots.get(s) + " Vaccine:" + s.getVac());
+                    System.out.println(pos + "-> Day: " + s.getDay()  + " Available Qty: " + this.Slots.get(s) + " Vaccine:" + s.getVac());
                     pos++;
                     avaialable_slots.add(s);
                 }
@@ -74,12 +74,12 @@ public class Hospital{
 
         slot s = avaialable_slots.get(choice);
 
-        int qty = Slots.get(s);
+        int qty = this.Slots.get(s);
         if(qty==1){
-            Slots.remove(s);
+            this.Slots.remove(s);
         }
         else{
-            Slots.put(s,qty-1);
+            this.Slots.put(s,qty-1);
         }
         record.add_slot(s);
         System.out.println(record.getName() + " succesfully vaccinated with " + record.getVacName());
@@ -87,10 +87,9 @@ public class Hospital{
 
     public boolean print_Slotsbyname(String vaccine_name){
         boolean flag = false;
-        for(slot s: Slots.keySet()){
+        for(slot s: this.Slots.keySet()){
             if(vaccine_name.equals(s.getVac())) {
                 flag = true;
-                break;
             }
         }
         if(flag) {
@@ -110,8 +109,8 @@ public class Hospital{
 
     public void print_slots(){
         int pos = 0;
-        for(slot s: Slots.keySet()){
-            System.out.println(pos + "-> Day: " + s.getDay() + " Available Qty: " + Slots.get(s) + " Vaccine:" + s.getVac());
+        for(slot s: this.Slots.keySet()){
+            System.out.println(pos + "-> Day: " + s.getDay() + " Available Qty: " + this.Slots.get(s) + " Vaccine:" + s.getVac());
             pos++;
         }
     }
