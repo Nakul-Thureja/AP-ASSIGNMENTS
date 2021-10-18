@@ -22,19 +22,18 @@ public class LectureSlides implements Uploadable{
 
     @Override
     public void UpLoad(){
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
         System.out.println("Enter topic of slides: ");
         this.topic = sc.nextLine();
         System.out.println("Enter number of slides: ");
         this.n = sc.nextInt();
-        System.out.println("Enter content of slides: ");
-        String content;
+        System.out.println("Enter content of slides ");
+        
         for(int i=0;i<n;i++){
             System.out.print("Content of slide "+ (i+1) +": ");
-            content = sc.next();
+            String content = sc.nextLine();
             data.add(content);
         }
-
         this.uploadTime = LocalDateTime.now();
     }
 

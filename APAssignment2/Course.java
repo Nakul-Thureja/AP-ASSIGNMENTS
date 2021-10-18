@@ -14,7 +14,7 @@ public class Course {
     private static ArrayList<Comment> comments = new ArrayList<>();
 
     public static void addMaterial(Instructor instructor){
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
         System.out.println("1. Add Lecture Slide");
         System.out.println("2. Add Lecture Video");
         int choice = sc.nextInt();
@@ -35,7 +35,7 @@ public class Course {
     }
 
     public static void addAssessment(Instructor instructor){
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
         System.out.println("1. Add Assignment");
         System.out.println("2. Add Quiz");
         int choice = sc.nextInt();
@@ -79,7 +79,7 @@ public class Course {
 
     public static void gradeAssessments(Instructor instructor){
         ArrayList<Gradable> pendingAssessments = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
         for(int i=0;i<assignments.size();i++){
             if(assignments.get(i).checkStatus()){
                 pendingAssessments.add(assignments.get(i));
@@ -91,10 +91,13 @@ public class Course {
                 pendingAssessments.add(quizzes.get(i));
             }
         }
-
+        if(pendingAssessments.size() == 0){
+            System.out.println("No Assessment available to grade");
+            return;
+        }
         System.out.println("List of assessments");
         for(int i=0;i<pendingAssessments.size();i++){
-            System.out.println("ID: "+ i + pendingAssessments.get(i));
+            System.out.println("ID: "+ i + " " + pendingAssessments.get(i));
             System.out.println("----------------");
         }
         System.out.println("Enter ID of assessment to view submissions: ");
@@ -109,18 +112,18 @@ public class Course {
 
     public static void submitAssessment(Student student){
         ArrayList<Gradable> pending = new ArrayList<>();
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
 
         for(int i=0;i<assignments.size();i++){
-            float choice = assignments.get(i).viewGrade(student);
-            if(choice == -2){
+            double choice = assignments.get(i).viewGrade(student);
+            if(choice == -2.0){
                 pending.add(assignments.get(i));
             }
          }
 
         for(int i=0;i<quizzes.size();i++){
-            float choice = quizzes.get(i).viewGrade(student);
-            if(choice == -2){
+            double choice = quizzes.get(i).viewGrade(student);
+            if(choice == -2.0){
                 pending.add(quizzes.get(i));
             }
         }
@@ -132,7 +135,7 @@ public class Course {
 
         System.out.println("Pending submissions: ");
         for(int i=0;i< pending.size();i++){
-            System.out.println(pending.get(i));
+            System.out.println("ID " + i + ": " + pending.get(i));
         }
         int choice = sc.nextInt();
         if(choice<0 || choice>=pending.size()){
@@ -149,11 +152,11 @@ public class Course {
         ArrayList<Gradable> pending = new ArrayList<>();
 
         for(int i=0;i<assignments.size();i++){
-            float choice = assignments.get(i).viewGrade(student);
-            if(choice == -1){
+            double choice = assignments.get(i).viewGrade(student);
+            if(choice == -1.0){
                 unGraded.add(assignments.get(i));
             }
-            else if(choice == -2){
+            else if(choice == -2.0){
                 pending.add(assignments.get(i));
             }
             else{
@@ -163,11 +166,11 @@ public class Course {
         }
 
         for(int i=0;i<quizzes.size();i++){
-            float choice = quizzes.get(i).viewGrade(student);
-            if(choice == -1){
+            double choice = quizzes.get(i).viewGrade(student);
+            if(choice == -1.0){
                 unGraded.add(quizzes.get(i));
             }
-            else if(choice == -2){
+            else if(choice == -2.0){
                 pending.add(quizzes.get(i));
             }
             else{
@@ -220,7 +223,7 @@ public class Course {
     }
 
     public static void closeAssessment(Instructor instructor){
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
         ArrayList<Gradable> openassessment = new ArrayList<>();
         System.out.println("List of Open Assignments: ");
         for(int i=0;i< assignments.size();i++){
@@ -250,9 +253,9 @@ public class Course {
 
 
     public static void InstructorMenu(Instructor instructor){
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
         while(true){
-            System.out.println("Welcome " + instructor.getId());
+            System.out.println("\nWelcome " + instructor.getId());
             System.out.println("INSTRUCTOR MENU");
             System.out.println("1. Add class material");
             System.out.println("2. Add assessments");
@@ -298,9 +301,9 @@ public class Course {
     }
 
     public static void StudentMenu(Student student){
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
         while(true) {
-            System.out.println("Welcome " + student.getId());
+            System.out.println("\nWelcome " + student.getId());
             System.out.println("STUDENT MENU");
             System.out.println("1. View lecture materials");
             System.out.println("2. View assessments");
@@ -351,7 +354,7 @@ public class Course {
     }
 
     public static void main(String[] args){
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
         System.out.println("Inializing Backpack.......");
         System.out.print("Enter number of Instructors: ");
         int ni = sc.nextInt();
@@ -366,7 +369,7 @@ public class Course {
             students.add(new Student(i));
         }
         while(true){
-            System.out.println("Welcome to Backpack");
+            System.out.println("\nWelcome to Backpack");
             System.out.println("1. Enter as instructor");
             System.out.println("2. Enter as student");
             System.out.println("3. Exit");
@@ -378,7 +381,9 @@ public class Course {
                 if(id<0 || id>= instructors.size()){
                     System.out.println("Please Enter Valid ID");
                 }
-                InstructorMenu(instructors.get(id));
+                else{
+                    InstructorMenu(instructors.get(id));
+                }
             }
             else if(choice == 2){
                 printStudents();
@@ -387,7 +392,9 @@ public class Course {
                 if(id<0 || id>= students.size()){
                     System.out.println("Please Enter Valid ID");
                 }
-                StudentMenu(students.get(id));
+                else{
+                    StudentMenu(students.get(id));
+                }
             }
             else if(choice == 3){
                 System.out.println("Exited.......");

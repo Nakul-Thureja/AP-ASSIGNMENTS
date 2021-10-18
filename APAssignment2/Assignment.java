@@ -42,7 +42,7 @@ public class Assignment implements Uploadable,Gradable{
 
     @Override
     public void UpLoad() {
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
         System.out.print("Enter problem statement: ");
         this.problem = sc.nextLine();
         System.out.print("Enter max marks: ");
@@ -58,10 +58,10 @@ public class Assignment implements Uploadable,Gradable{
             System.out.println("Assignment has been closed by the instructor you cannot submit now");
             return;
         }
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
         System.out.print("Enter filename of assignment: ");
         String filename = sc.next();
-        if (!filename.substring(filename.length() - 5, filename.length() - 1).equals(".zip")){
+        if (!filename.substring(filename.length() - 4).equals(".zip")){
             System.out.println("Wrong file type");
             System.out.println("Please upload an .zip file");
             return;
@@ -73,7 +73,8 @@ public class Assignment implements Uploadable,Gradable{
 
     @Override
     public void Grade(Instructor instructor) {
-        Scanner sc = new Scanner(System.in);
+        
+        FastReader sc = new FastReader();
 
 
         System.out.println("Choose ID from these ungraded submissions ");
@@ -114,14 +115,14 @@ public class Assignment implements Uploadable,Gradable{
         System.out.println("Max Marks: " + this.max);
         System.out.print("Marks scored: ");
 
-        int marks = sc.nextInt();
+        double marks = sc.nextDouble();
         if(marks< 0 || marks >= this.max){
-            System.out.print("Please enter a valid Grade");
+            System.out.println("Please enter a valid Grade");
             return;
         }
 
         Grade grade = new Grade(this.max,marks,instructor);
-        grades.put(student,grade);
+        this.grades.put(student,grade);
     }
 
     @Override
@@ -135,18 +136,18 @@ public class Assignment implements Uploadable,Gradable{
     }
 
     @Override
-    public float viewGrade(Student student) {
+    public double viewGrade(Student student) {
         if (this.submissions.get(student) == null) {
-            return -2;
+            return -2.0;
         }
         if (this.grades.get(student) == null) {
-            return -1;
+            return -1.0;
         }
         return this.grades.get(student).getGrade();
     }
 
     @Override
     public String toString() {
-        return "Assignment: " + problem + "Max Marks: " + max ;
+        return "Assignment: " + problem + " Max Marks: " + max ;
     }
 }

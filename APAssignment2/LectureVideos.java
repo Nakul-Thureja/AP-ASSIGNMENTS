@@ -22,19 +22,20 @@ public class LectureVideos implements Uploadable{
 
     @Override
     public void UpLoad() {
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
         String topic,filename;
         System.out.print("Enter topic of video: ");
         topic = sc.nextLine();
         System.out.print("Enter filename of video: ");
         filename = sc.next();
-        if (!filename.substring(filename.length() - 5, filename.length() - 1).equals(".mp4")) {
+        if (!filename.substring(filename.length() - 4).equals(".mp4")) {
             System.out.println("Wrong file type");
-            System.out.println("Please upload an .mp3 file");
+            System.out.println("Please upload an .mp4 file");
             return;
         }
         this.topic = topic;
         this.filename = filename;
+        this.uploadTime = LocalDateTime.now();
     }
 
     @Override

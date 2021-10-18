@@ -17,14 +17,15 @@ public class Comment{
     }
 
     public void addComment(Instructor instructor) {
-        Scanner sc = new Scanner(System.in);
+        FastReader sc = new FastReader();
         System.out.println("Enter comment: ");
         this.comment = sc.nextLine() + " - " + instructor.getId() ;
         this.uploadTime = LocalDateTime.now();
     }
 
     public void addComment(Student student) {
-        Scanner sc = new Scanner(System.in);
+       
+        FastReader sc = new FastReader(); 
         System.out.println("Enter comment: ");
         this.comment = sc.nextLine() + " - " + student.getId() ;
         this.uploadTime = LocalDateTime.now();
