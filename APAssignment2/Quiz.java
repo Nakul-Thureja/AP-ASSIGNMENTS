@@ -30,23 +30,27 @@ public class Quiz implements Uploadable,Gradable{
 
     @Override
     public boolean open() {
-        return this.closeTime == null;
+        return (this.closeTime == null);
     }
 
     @Override
     public void closeAssessment(Instructor instructor) {
         this.closeTime = LocalDateTime.now();
-        this.closeInstructor = closeInstructor;
+        this.closeInstructor = instructor;
     }
 
     @Override
     public void Submit(Student student) {
+        if(this.closeTime != null){
+            System.out.println("Assignment has been closed by the instructor you cannot submit now");
+            return;
+        }
         FastReader sc = new FastReader();
-        System.out.print("Enter Answer ");
+        System.out.print("Enter Answer: ");
         String answer = sc.nextLine();
         this.submissions.put(student,answer);
         this.grades.put(student,null);
-        this.closeTime = LocalDateTime.now();
+        this.submitTime = LocalDateTime.now();
     }
 
     @Override
@@ -91,7 +95,7 @@ public class Quiz implements Uploadable,Gradable{
         System.out.print("Marks scored: ");
 
         double marks = sc.nextDouble();
-        if(marks< 0 || marks >= 1){
+        if(marks< 0 || marks > 1){
             System.out.print("Please enter a valid Grade");
             return;
         }
@@ -119,6 +123,12 @@ public class Quiz implements Uploadable,Gradable{
             }
         }
         return false;
+    }
+    
+    @Override
+    public String getGrade(Student student){
+        return "Submission: " + this.submissions.get(student) + "\nMarks scored:" + 
+                this.grades.get(student).getGrade() +"\nGraded by: " + this.grades.get(student).getId()+"\n";
     }
 
     @Override

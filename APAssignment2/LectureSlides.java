@@ -44,6 +44,7 @@ public class LectureSlides implements Uploadable{
         for (int i = 0; i < this.data.size(); i++) {
             str += "Slide " + (i + 1) + ": " + this.data.get(i) + "\n";
         }
+        str += "Number of slides: " + this.n + "\n";
         str += "Date of upload: " + this.uploadTime.getDayOfWeek().name() + " " + date.format(this.uploadTime)  + " IST\n";
         str += "Uploaded by: " + this.instructor.getId() + "\n";
         return str;

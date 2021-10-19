@@ -33,11 +33,12 @@ public class Assignment implements Uploadable,Gradable{
     @Override
     public void closeAssessment(Instructor instructor) {
         this.closeTime = LocalDateTime.now();
+        this.closeInstructor = instructor;
     }
 
     @Override
     public boolean open() {
-        return this.closeTime == null;
+        return (this.closeTime == null);
     }
 
     @Override
@@ -116,7 +117,7 @@ public class Assignment implements Uploadable,Gradable{
         System.out.print("Marks scored: ");
 
         double marks = sc.nextDouble();
-        if(marks< 0 || marks >= this.max){
+        if(marks< 0 || marks > this.max){
             System.out.println("Please enter a valid Grade");
             return;
         }
@@ -144,6 +145,12 @@ public class Assignment implements Uploadable,Gradable{
             return -1.0;
         }
         return this.grades.get(student).getGrade();
+    }
+
+    @Override
+    public String getGrade(Student student){
+        return "Submission: " + this.submissions.get(student) + "\nMarks scored:" + 
+                this.grades.get(student).getGrade() +"\nGraded by: " + this.grades.get(student).getId()+"\n";
     }
 
     @Override

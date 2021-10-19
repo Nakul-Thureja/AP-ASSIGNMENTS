@@ -14,4 +14,8 @@ public class Grade {
     public double getGrade() {
         return this.grade;
     }
+
+    public String getId(){
+        return this.instructor.getId();
+    }
 }

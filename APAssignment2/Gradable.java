@@ -8,4 +8,5 @@ public interface Gradable {
     public boolean checkStatus();
     public void closeAssessment(Instructor instructor);
     public boolean open();
+    public String getGrade(Student student);
 }

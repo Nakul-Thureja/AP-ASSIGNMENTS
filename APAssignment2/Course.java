@@ -116,14 +116,14 @@ public class Course {
 
         for(int i=0;i<assignments.size();i++){
             double choice = assignments.get(i).viewGrade(student);
-            if(choice == -2.0){
+            if(choice == -2.0 && assignments.get(i).open()){
                 pending.add(assignments.get(i));
             }
          }
 
         for(int i=0;i<quizzes.size();i++){
             double choice = quizzes.get(i).viewGrade(student);
-            if(choice == -2.0){
+            if(choice == -2.0 && quizzes.get(i).open()){
                 pending.add(quizzes.get(i));
             }
         }
@@ -133,10 +133,11 @@ public class Course {
         }
 
 
-        System.out.println("Pending submissions: ");
+        System.out.println("Pending assessments: ");
         for(int i=0;i< pending.size();i++){
             System.out.println("ID " + i + ": " + pending.get(i));
         }
+        System.out.print("Enter ID of assessment: ");
         int choice = sc.nextInt();
         if(choice<0 || choice>=pending.size()){
             System.out.println("Please Enter valid choice");
@@ -150,6 +151,7 @@ public class Course {
         ArrayList<Gradable> unGraded = new ArrayList<>();
         ArrayList<Gradable> Graded = new ArrayList<>();
         ArrayList<Gradable> pending = new ArrayList<>();
+        ArrayList<Gradable> missed = new ArrayList<>();
 
         for(int i=0;i<assignments.size();i++){
             double choice = assignments.get(i).viewGrade(student);
@@ -157,7 +159,12 @@ public class Course {
                 unGraded.add(assignments.get(i));
             }
             else if(choice == -2.0){
-                pending.add(assignments.get(i));
+                if(quizzes.get(i).open()){
+                    pending.add(assignments.get(i));
+                }
+                else{
+                    missed.add(assignments.get(i));
+                }
             }
             else{
                 Graded.add(assignments.get(i));
@@ -171,7 +178,12 @@ public class Course {
                 unGraded.add(quizzes.get(i));
             }
             else if(choice == -2.0){
-                pending.add(quizzes.get(i));
+                if(quizzes.get(i).open()){
+                    pending.add(quizzes.get(i));
+                }
+                else{
+                    missed.add(quizzes.get(i));
+                }
             }
             else{
                 Graded.add(quizzes.get(i));
@@ -179,23 +191,31 @@ public class Course {
         }
 
         if(Graded.size() != 0){
-            System.out.println("Graded submissions: ");
+            System.out.println("\nGraded submissions: ");
             for(int i=0;i< Graded.size();i++){
                 System.out.println(Graded.get(i));
+                System.out.println(Graded.get(i).getGrade(student));
             }
         }
 
         if(unGraded.size() != 0){
-            System.out.println("Ungraded submissions: ");
+            System.out.println("\nUngraded submissions: ");
             for(int i=0;i< unGraded.size();i++){
                 System.out.println(unGraded.get(i));
             }
         }
 
         if(pending.size() != 0){
-            System.out.println("Pending submissions: ");
+            System.out.println("\nPending submissions: ");
             for(int i=0;i< pending.size();i++){
                 System.out.println(pending.get(i));
+            }
+        }
+
+        if(missed.size() != 0){
+            System.out.println("\nMissed submissions: ");
+            for(int i=0;i< missed.size();i++){
+                System.out.println(missed.get(i));
             }
         }
     }
@@ -289,9 +309,10 @@ public class Course {
                     break;
                 case 7:
                     viewComments();
-                    return;
+                    break;
                 case 8:
                     addComment(instructor);
+                    break;
                 case 9:
                     return;
                 default:
