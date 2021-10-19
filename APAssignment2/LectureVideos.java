@@ -28,7 +28,7 @@ public class LectureVideos implements Uploadable{
         topic = sc.nextLine();
         System.out.print("Enter filename of video: ");
         filename = sc.next();
-        if (!filename.substring(filename.length() - 4).equals(".mp4")) {
+        if (filename.length()<=4 || !filename.substring(filename.length() - 4).equals(".mp4")) {
             System.out.println("Wrong file type");
             System.out.println("Please upload an .mp4 file");
             return;

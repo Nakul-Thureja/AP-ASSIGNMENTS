@@ -62,7 +62,7 @@ public class Assignment implements Uploadable,Gradable{
         FastReader sc = new FastReader();
         System.out.print("Enter filename of assignment: ");
         String filename = sc.next();
-        if (!filename.substring(filename.length() - 4).equals(".zip")){
+        if (filename.length()<=4 || !filename.substring(filename.length() - 4).equals(".zip")){
             System.out.println("Wrong file type");
             System.out.println("Please upload an .zip file");
             return;
@@ -149,7 +149,7 @@ public class Assignment implements Uploadable,Gradable{
 
     @Override
     public String getGrade(Student student){
-        return "Submission: " + this.submissions.get(student) + "\nMarks scored:" + 
+        return "Submission: " + this.submissions.get(student) + "\nMarks scored: " + 
                 this.grades.get(student).getGrade() +"\nGraded by: " + this.grades.get(student).getId()+"\n";
     }
 

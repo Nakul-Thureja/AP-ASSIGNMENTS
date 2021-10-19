@@ -13,6 +13,8 @@ public class Course {
     private static ArrayList<Quiz> quizzes = new ArrayList<>();
     private static ArrayList<Comment> comments = new ArrayList<>();
 
+
+    //Function for Instructor
     public static void addMaterial(Instructor instructor){
         FastReader sc = new FastReader();
         System.out.println("1. Add Lecture Slide");
@@ -67,11 +69,11 @@ public class Course {
     }
 
     public static void viewAssessments(){
-        System.out.println("Assignments: \n");
+        System.out.println("Assignments: ");
         for(int i=0;i<assignments.size();i++){
             System.out.println(assignments.get(i));
         }
-        System.out.println("\nQuizzes: \n");
+        System.out.println("\nQuizzes: ");
         for(int i=0;i<quizzes.size();i++){
             System.out.println(quizzes.get(i));
         }
@@ -109,7 +111,38 @@ public class Course {
         pendingAssessments.get(choice).Grade(instructor);
     }
 
+    public static void closeAssessment(Instructor instructor){
+        FastReader sc = new FastReader();
+        ArrayList<Gradable> openassessment = new ArrayList<>();
+        System.out.println("List of Open Assignments: ");
+        for(int i=0;i< assignments.size();i++){
+            if(assignments.get(i).open()){
+                openassessment.add(assignments.get(i));
+            }
+        }
+        for(int i=0;i< quizzes.size();i++){
+            if(quizzes.get(i).open()){
+                openassessment.add(quizzes.get(i));
+            }
+        }
+        if(openassessment.size()==0){
+            System.out.println("No assessment to close currently");
+            return ;
+        }
+        for(int i=0;i< openassessment.size();i++){
+            System.out.println("ID " + i + " " + openassessment.get(i));
+        }
+        System.out.println("Enter id of assignment to close:");
+        int index = sc.nextInt();
 
+        if(index<0 || index>=openassessment.size()){
+            System.out.println("Please Enter Valid ID");
+            return;
+        }
+        openassessment.get(index).closeAssessment(instructor);
+    }
+
+    //Student Functioms
     public static void submitAssessment(Student student){
         ArrayList<Gradable> pending = new ArrayList<>();
         FastReader sc = new FastReader();
@@ -146,8 +179,8 @@ public class Course {
         pending.get(choice).Submit(student);
     }
 
-
-    public static void viewGrades(Student student){
+    
+    public static void studentsAssessments(Student student){
         ArrayList<Gradable> unGraded = new ArrayList<>();
         ArrayList<Gradable> Graded = new ArrayList<>();
         ArrayList<Gradable> pending = new ArrayList<>();
@@ -159,7 +192,7 @@ public class Course {
                 unGraded.add(assignments.get(i));
             }
             else if(choice == -2.0){
-                if(quizzes.get(i).open()){
+                if(assignments.get(i).open()){
                     pending.add(assignments.get(i));
                 }
                 else{
@@ -194,7 +227,6 @@ public class Course {
             System.out.println("\nGraded submissions: ");
             for(int i=0;i< Graded.size();i++){
                 System.out.println(Graded.get(i));
-                System.out.println(Graded.get(i).getGrade(student));
             }
         }
 
@@ -220,6 +252,50 @@ public class Course {
         }
     }
 
+    public static void viewGrades(Student student){
+        ArrayList<Gradable> unGraded = new ArrayList<>();
+        ArrayList<Gradable> Graded = new ArrayList<>();
+        
+        for(int i=0;i<assignments.size();i++){
+            double choice = assignments.get(i).viewGrade(student);
+            if(choice == -1.0){
+                unGraded.add(assignments.get(i));
+            }
+            else if(choice == -2.0){
+                continue;
+            }
+            else{
+                Graded.add(assignments.get(i));
+            }
+
+        }
+
+        for(int i=0;i<quizzes.size();i++){
+            double choice = quizzes.get(i).viewGrade(student);
+            if(choice == -1.0){
+                unGraded.add(quizzes.get(i));
+            }
+            else if(choice == -2.0){
+                continue;
+            }
+            else{
+                Graded.add(quizzes.get(i));
+            }
+        }
+
+        System.out.println("\nGraded submissions: ");
+        for(int i=0;i< Graded.size();i++){
+            System.out.println(Graded.get(i));
+            System.out.println(Graded.get(i).getGrade(student));
+        }
+        System.out.println("\nUngraded submissions: ");
+        for(int i=0;i< unGraded.size();i++){
+            System.out.println(unGraded.get(i));
+        }
+        
+    }
+
+    //Functions for comments
     //Function Overloading
     public static void addComment(Instructor instructor){
         Comment comment = new Comment();
@@ -233,44 +309,12 @@ public class Course {
         comments.add(comment);
     }
 
-
-
     public static void viewComments(){
         System.out.println("Comments: ");
         for(int i=0;i<comments.size();i++){
             System.out.print(comments.get(i));
         }
     }
-
-    public static void closeAssessment(Instructor instructor){
-        FastReader sc = new FastReader();
-        ArrayList<Gradable> openassessment = new ArrayList<>();
-        System.out.println("List of Open Assignments: ");
-        for(int i=0;i< assignments.size();i++){
-            if(assignments.get(i).open()){
-                openassessment.add(assignments.get(i));
-            }
-        }
-        for(int i=0;i< quizzes.size();i++){
-            if(quizzes.get(i).open()){
-                openassessment.add(quizzes.get(i));
-            }
-        }
-
-        for(int i=0;i< openassessment.size();i++){
-            System.out.println("ID " + i + " " + openassessment.get(i));
-        }
-        System.out.println("Enter id of assignment to close:");
-        int index = sc.nextInt();
-
-        if(index<0 || index>=openassessment.size()){
-            System.out.println("Please Enter Valid ID");
-            return;
-        }
-        openassessment.get(index).closeAssessment(instructor);
-    }
-
-
 
     public static void InstructorMenu(Instructor instructor){
         FastReader sc = new FastReader();
@@ -340,7 +384,7 @@ public class Course {
                     viewLectures();
                     break;
                 case 2:
-                    viewAssessments();
+                    studentsAssessments(student);
                     break;
                 case 3:
                     submitAssessment(student);
@@ -361,12 +405,14 @@ public class Course {
             }
         }
     }
+
     public static void printStudents(){
         System.out.println("Students: ");
         for(int i=0;i< students.size();i++){
             System.out.println(i + " - " + students.get(i).getId());
         }
     }
+
     public static void printInstructors(){
         System.out.println("Instructors: ");
         for(int i=0;i< instructors.size();i++){
@@ -424,10 +470,6 @@ public class Course {
             else{
                 System.out.println("Please Enter a Valid Choice");
             }
-
-
         }
-
     }
-
 }

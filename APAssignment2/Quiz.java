@@ -127,7 +127,7 @@ public class Quiz implements Uploadable,Gradable{
     
     @Override
     public String getGrade(Student student){
-        return "Submission: " + this.submissions.get(student) + "\nMarks scored:" + 
+        return "Submission: " + this.submissions.get(student) + "\nMarks scored: " + 
                 this.grades.get(student).getGrade() +"\nGraded by: " + this.grades.get(student).getId()+"\n";
     }
 
