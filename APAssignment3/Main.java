@@ -23,20 +23,31 @@ public class Main {
     }
 
     private static void play(Player player,Dice dice){
+        Scanner sc = new Scanner(System.in);
+        System.out.println("The game setup is ready");
         while(player.getLevel() < 13){
-            System.out.println("The game setup is ready");
             System.out.println("Hit enter to roll dice");
-            
+            sc.nextLine();
             dice.roll();
             System.out.println(dice);
             if(player.check(dice.getFaceValue())){
-
-                Board.get(player.getLevel()).updatePoints(player);
-                Board.get(player.getLevel()).updateLevel(player);
-
+                if(player.getLevel() == -1){
+                    player.setLevel(player.getLevel()+ dice.getFaceValue());
+                    Board.get(player.getLevel()).updatePoints(player);
+                }
+                else {
+                    player.setLevel(player.getLevel() + dice.getFaceValue());
+                    Board.get(player.getLevel()).updatePoints(player);
+                }
+                System.out.println(Board.get(player.getLevel()).toString(player));
+                if(!(Board.get(player.getLevel()) instanceof EmptyFloor)) {
+                    Board.get(player.getLevel()).updateLevel(player);
+                    Board.get(player.getLevel()).updatePoints(player);
+                    System.out.println(Board.get(player.getLevel()).toString(player));
+                }
             }
             else{
-                if(Board.get(player.getLevel()).getLevel() == 0) {
+                if(player.getLevel() == -1) {
                     System.out.println("Game cannot start until you get 1");
                 }
                 else{
@@ -49,12 +60,13 @@ public class Main {
     }
 
     public static void main(String args[]){
-        Scanner reader = new Scanner(System.in);
+        FastReader reader = new FastReader();
         System.out.println("Welcome to Snakes and Ladders");
         System.out.println("Enter the player name and hit enter");
-        String name = reader.next();
+        String name = reader.nextLine();
         Player player = new Player(name);
         Dice dice = new Dice();
+        CreateBoard();
         play(player,dice);
     }
 }

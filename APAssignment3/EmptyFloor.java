@@ -8,13 +8,17 @@ public class EmptyFloor extends Floor{
 
     @Override
     public void updateLevel(Player player) {
+        if(player.getLevel() == -1){
+            player.setLevel(0);
+            return;
+        }
         player.setLevel(player.getLevel());
     }
 
     @Override
     public void updatePoints(Player player) {
         int curr = player.getPoints();
-        player.setPoints(curr + 0);
+        player.setPoints(curr + 1);
     }
 
     @Override

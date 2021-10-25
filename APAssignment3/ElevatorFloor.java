@@ -19,7 +19,7 @@ public class ElevatorFloor extends Floor{
     @Override
     public String toString(Player player) {
         return "Player position Floor - " + player.getLevel() + "\n" +
-                player.getName() + " has reached an levator Floor\n" +
+                player.getName() + " has reached an Elevator Floor\n" +
                 "Total points " + player.getPoints() + "\n";
     }
 }

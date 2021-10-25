@@ -7,11 +7,11 @@ public class Player {
     Player(String name){
         this.name = name;
         this.points = 0;
-        this.level = 0;
+        this.level = -1;
     }
 
     public boolean check(int move){
-        if(this.level==0){
+        if(this.level == -1){
             return (move == 1);
         }
         return (this.level + move <= 13) ;
@@ -39,6 +39,6 @@ public class Player {
 
     @Override
     public String toString(){
-        return this.name + " accumulated " + this.points + "points\n";
+        return this.name + " accumulated " + this.points + " points\n";
     }
 }
