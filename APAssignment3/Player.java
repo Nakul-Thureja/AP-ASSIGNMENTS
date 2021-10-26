@@ -4,7 +4,7 @@ public class Player {
     private String name;
     private int points;
     private int level;
-    Player(String name){
+    public Player(String name){
         this.name = name;
         this.points = 0;
         this.level = -1;

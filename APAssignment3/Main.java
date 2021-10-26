@@ -18,8 +18,8 @@ public class Main {
         Board.add(new EmptyFloor(9,1));
         Board.add(new EmptyFloor(10,1));
         Board.add(new CobraFloor(11,4));
-        Board.add(new EmptyFloor(4,1));
-        Board.add(new EmptyFloor(4,1));
+        Board.add(new EmptyFloor(12,1));
+        Board.add(new EmptyFloor(13,1));
     }
 
     private static void play(Player player,Dice dice){
