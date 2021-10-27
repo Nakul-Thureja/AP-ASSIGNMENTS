@@ -39,6 +39,6 @@ public class Player {
 
     @Override
     public String toString(){
-        return this.name + " accumulated " + this.points + " points\n";
+        return this.name + " accumulated " + this.points + " points ";
     }
 }
