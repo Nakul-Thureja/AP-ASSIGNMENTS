@@ -7,6 +7,7 @@ public class Jump {
 
         public Jump() {
             this.numFaces = 25;
+            this.jumpValue = -1;
         }
 
         public void jump() {
@@ -26,7 +27,6 @@ public class Jump {
         public int getJumpValue() {
             return this.jumpValue;
         }
-
 
         @Override
         public String toString() {

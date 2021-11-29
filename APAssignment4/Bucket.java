@@ -9,7 +9,7 @@ public class Bucket{
         this.myToys = new ArrayList<>();
     }
     public void AwardToy(SoftToy myToy){
-        myToys.add(myToy);
+        this.myToys.add(myToy);
     }
     public void printToys(){
         for(int i=0;i<this.myToys.size()-1;i++){

@@ -1,7 +1,7 @@
 package APAssignment4;
 import java.io.*;
 
-public class Tile {
+public abstract class Tile {
     private SoftToy myToy;
     private int myPosition;
     private boolean flag;
@@ -19,6 +19,8 @@ public class Tile {
         }
         position++;
     }
+
+    public abstract boolean play();
 
     public boolean getFlag() {
         return this.flag;
