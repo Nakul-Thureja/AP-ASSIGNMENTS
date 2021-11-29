@@ -5,8 +5,8 @@ import java.lang.*;
 import java.io.*;
 
 public class FastReader {
-    BufferedReader br;
-    StringTokenizer st;
+    private BufferedReader br;
+    private StringTokenizer st;
     public FastReader()
     {
         br = new BufferedReader(

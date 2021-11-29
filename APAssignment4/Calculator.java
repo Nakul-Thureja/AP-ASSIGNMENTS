@@ -1,8 +1,8 @@
 package APAssignment4;
 
 public class Calculator<T>{
-    T part1;
-    T part2;
+    private T part1;
+    private T part2;
 
     public Calculator(T part_1,T part_2){
         if((part_1 instanceof Integer) && (part_2 instanceof Integer)){
